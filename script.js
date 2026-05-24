@@ -1,4 +1,4 @@
-$(function () {
+document.addEventListener('DOMContentLoaded', function () {
     const categories = [
         {
             name: "Study",
@@ -166,40 +166,42 @@ $(function () {
         });
     });
 
-    var $categoryFilter = $("#category-filter");
-    var $categoryGrid = $("#category-grid");
-    var $siteA = $("#site-a");
-    var $siteB = $("#site-b");
-    var $compareResult = $("#compare-result");
+    var categoryFilter = document.getElementById('category-filter');
+    var categoryGrid = document.getElementById('category-grid');
+    var siteA = document.getElementById('site-a');
+    var siteB = document.getElementById('site-b');
+    var compareResult = document.getElementById('compare-result');
+    var compareBtn = document.getElementById('compare-btn');
 
     function renderOptions() {
         var categoryOptions = ['<option value="all">All Categories</option>'];
         categories.forEach(function (category) {
             categoryOptions.push('<option value="' + category.name + '">' + category.name + '</option>');
         });
-        $categoryFilter.html(categoryOptions.join(''));
+        if (categoryFilter) categoryFilter.innerHTML = categoryOptions.join('');
 
         var websiteOptions = [];
         allWebsites.forEach(function (website, index) {
             websiteOptions.push('<option value="' + index + '">' + website.name + ' — ' + website.category + '</option>');
         });
-        $siteA.html(websiteOptions.join(''));
-        $siteB.html(websiteOptions.join(''));
-        $siteB.val('1');
+        if (siteA) siteA.innerHTML = websiteOptions.join('');
+        if (siteB) siteB.innerHTML = websiteOptions.join('');
+        if (siteB) siteB.value = '1';
     }
 
     function websiteCard(website) {
-        return `
-            <article class="website-card">
-                <div class="website-card-top">
-                    <span class="category-chip">${website.category}</span>
-                    <span class="difficulty-chip">${website.difficulty}</span>
-                </div>
-                <h3><a href="${website.url}" target="_blank" rel="noopener noreferrer">${website.name}</a></h3>
-                <p class="website-purpose">${website.purpose}</p>
-                <p><strong>Usage:</strong> ${website.usage}</p>
-                <a class="visit-link" href="${website.url}" target="_blank" rel="noopener noreferrer">Visit website</a>
-            </article>`;
+        return (
+            '<article class="website-card">' +
+            '<div class="website-card-top">' +
+            '<span class="category-chip">' + website.category + '</span>' +
+            '<span class="difficulty-chip">' + website.difficulty + '</span>' +
+            '</div>' +
+            '<h3><a href="' + website.url + '" target="_blank" rel="noopener noreferrer">' + website.name + '</a></h3>' +
+            '<p class="website-purpose">' + website.purpose + '</p>' +
+            '<p><strong>Usage:</strong> ' + website.usage + '</p>' +
+            '<a class="visit-link" href="' + website.url + '" target="_blank" rel="noopener noreferrer">Visit website</a>' +
+            '</article>'
+        );
     }
 
     function renderDirectory(selectedCategory) {
@@ -209,18 +211,9 @@ $(function () {
                 return;
             }
 
-            html += `
-                <section class="category-block">
-                    <div class="category-header">
-                        <div>
-                            <p class="eyebrow">Category</p>
-                            <h3>${category.name}</h3>
-                        </div>
-                        <span class="count-pill">${category.websites.length} websites</span>
-                    </div>
-                    <div class="website-grid">
-                        ${category.websites.map(function (website) {
-                return websiteCard({
+            var websitesHtml = '';
+            category.websites.forEach(function (website) {
+                websitesHtml += websiteCard({
                     name: website.name,
                     url: website.url,
                     purpose: website.purpose,
@@ -228,53 +221,65 @@ $(function () {
                     usage: website.usage,
                     category: category.name
                 });
-            }).join('')}
-                    </div>
-                </section>`;
+            });
+
+            html +=
+                '<section class="category-block">' +
+                '<div class="category-header">' +
+                '<div>' +
+                '<p class="eyebrow">Category</p>' +
+                '<h3>' + category.name + '</h3>' +
+                '</div>' +
+                '<span class="count-pill">' + category.websites.length + ' websites</span>' +
+                '</div>' +
+                '<div class="website-grid">' + websitesHtml + '</div>' +
+                '</section>';
         });
 
-        $categoryGrid.html(html);
+        if (categoryGrid) categoryGrid.innerHTML = html;
     }
 
     function renderComparison() {
-        var first = allWebsites[Number($siteA.val())];
-        var second = allWebsites[Number($siteB.val())];
+        var first = allWebsites[Number(siteA ? siteA.value : 0)];
+        var second = allWebsites[Number(siteB ? siteB.value : 0)];
 
         if (!first || !second) {
-            $compareResult.html('<p>Choose two websites and click compare to view the details.</p>');
+            if (compareResult) compareResult.innerHTML = '<p>Choose two websites and click compare to view the details.</p>';
             return;
         }
 
-        $compareResult.html(`
-            <div class="comparison-grid">
-                <article class="compare-card-item">
-                    <h3>${first.name}</h3>
-                    <p><strong>Category:</strong> ${first.category}</p>
-                    <p><strong>Purpose:</strong> ${first.purpose}</p>
-                    <p><strong>Difficulty:</strong> ${first.difficulty}</p>
-                    <p><strong>Usage:</strong> ${first.usage}</p>
-                    <a href="${first.url}" target="_blank" rel="noopener noreferrer">Open website</a>
-                </article>
-                <article class="compare-card-item">
-                    <h3>${second.name}</h3>
-                    <p><strong>Category:</strong> ${second.category}</p>
-                    <p><strong>Purpose:</strong> ${second.purpose}</p>
-                    <p><strong>Difficulty:</strong> ${second.difficulty}</p>
-                    <p><strong>Usage:</strong> ${second.usage}</p>
-                    <a href="${second.url}" target="_blank" rel="noopener noreferrer">Open website</a>
-                </article>
-            </div>`);
+        if (compareResult) compareResult.innerHTML =
+            '<div class="comparison-grid">' +
+            '<article class="compare-card-item">' +
+            '<h3>' + first.name + '</h3>' +
+            '<p><strong>Category:</strong> ' + first.category + '</p>' +
+            '<p><strong>Purpose:</strong> ' + first.purpose + '</p>' +
+            '<p><strong>Difficulty:</strong> ' + first.difficulty + '</p>' +
+            '<p><strong>Usage:</strong> ' + first.usage + '</p>' +
+            '<a href="' + first.url + '" target="_blank" rel="noopener noreferrer">Open website</a>' +
+            '</article>' +
+            '<article class="compare-card-item">' +
+            '<h3>' + second.name + '</h3>' +
+            '<p><strong>Category:</strong> ' + second.category + '</p>' +
+            '<p><strong>Purpose:</strong> ' + second.purpose + '</p>' +
+            '<p><strong>Difficulty:</strong> ' + second.difficulty + '</p>' +
+            '<p><strong>Usage:</strong> ' + second.usage + '</p>' +
+            '<a href="' + second.url + '" target="_blank" rel="noopener noreferrer">Open website</a>' +
+            '</article>' +
+            '</div>';
     }
 
     renderOptions();
     renderDirectory('all');
     renderComparison();
 
-    $categoryFilter.on('change', function () {
-        renderDirectory($(this).val());
-    });
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', function () {
+            renderDirectory(this.value);
+        });
+    }
 
-    $('#compare-btn').on('click', renderComparison);
-    $siteA.on('change', renderComparison);
-    $siteB.on('change', renderComparison);
+    if (compareBtn) compareBtn.addEventListener('click', renderComparison);
+    if (siteA) siteA.addEventListener('change', renderComparison);
+    if (siteB) siteB.addEventListener('change', renderComparison);
 });
