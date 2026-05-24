@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Web Directory</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+    <header class="hero">
+        <div class="hero-copy">
+            <p class="eyebrow">College Project</p>
+            <h1>Smart Web Directory</h1>
+            <p class="hero-text">Discover useful websites in one place, browse curated categories, and compare two sites
+                by purpose, difficulty, and usage.</p>
+            <div class="hero-actions">
+                <a href="#directory" class="button-link">Explore Directory</a>
+                <a href="#compare" class="button-link button-link-secondary">Compare Websites</a>
+            </div>
+        </div>
+        <div class="hero-panel">
+            <div class="panel-stat">
+                <span id="category-count">10</span>
+                <p>Categories</p>
+            </div>
+            <div class="panel-stat">
+                <span id="website-count">100</span>
+                <p>Websites</p>
+            </div>
+            <div class="panel-stat">
+                <span>3</span>
+                <p>Comparison Fields</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="intro-card">
+            <h2>Project Overview</h2>
+            <p>Smart Web Directory is a simple and user-friendly platform that helps users discover useful websites in
+                categories such as Study, Coding, Productivity, Design, Entertainment, and more. The comparison tool
+                below lets users select two websites and compare them based on purpose, difficulty level, and usage.</p>
+        </section>
+
+        <section id="directory" class="section-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Browse</p>
+                    <h2>Website Categories</h2>
+                </div>
+                <label class="filter-wrap" for="category-filter">
+                    <span>Filter category</span>
+                    <select id="category-filter"></select>
+                </label>
+            </div>
+            <div id="category-grid" class="category-grid"></div>
+        </section>
+
+        <section id="compare" class="section-card compare-card">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Compare</p>
+                    <h2>Website Comparison</h2>
+                </div>
+                <p class="muted">Select any two websites from the directory.</p>
+            </div>
+
+            <div class="compare-controls">
+                <label>
+                    <span>Website 1</span>
+                    <select id="site-a"></select>
+                </label>
+                <label>
+                    <span>Website 2</span>
+                    <select id="site-b"></select>
+                </label>
+                <button id="compare-btn" type="button">Compare Selected Websites</button>
+            </div>
+
+            <div id="compare-result" class="compare-result">
+                <p>Choose two websites and click compare to view the details.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Smart Web Directory | Hardcoded college project demo</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
