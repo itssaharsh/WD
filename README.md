@@ -4,4 +4,4 @@ Clone this repo
 git clone https://github.com/itssaharsh/WD 
 cd WD
 python3 -m http.server 8080 
-thrn follow the link
+then follow the link
