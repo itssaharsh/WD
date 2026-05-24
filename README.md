@@ -1,6 +1,6 @@
 # WD
-To run 
-Clone this repo
-git clone https://github.com/itssaharsh/WD
-python3 -m http.server 8080
+To run /n
+Clone this repo /n
+git clone https://github.com/itssaharsh/WD /n
+python3 -m http.server 8080 /n
 thrn follow the link
