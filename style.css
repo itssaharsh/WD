@@ -39,6 +39,58 @@ a {
     color: inherit;
 }
 
+/* Minimal hero/header layout: keeps header readable and centers stats */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 18px;
+    align-items: start;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero-copy {
+    padding: 8px;
+}
+
+.hero-text {
+    margin-top: 8px;
+    color: #333;
+    max-width: 60ch;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.hero-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.panel-stat {
+    text-align: center;
+    padding: 8px;
+}
+
+.panel-stat span {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.panel-stat p {
+    margin: 6px 0 0;
+    color: #444;
+}
+
 .button-link,
 button {
     padding: 10px 14px;
